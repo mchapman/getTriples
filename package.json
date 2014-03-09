@@ -1,0 +1,18 @@
+{
+  "name": "getTriples",
+  "version": "0.0.0",
+  "description": "extract triples",
+  "main": "server.js",
+  "dependencies": {
+    "xlsjs": "git://github.com/mchapman/js-xls#dd81dd72a38a2872fd1e5ad36f344bc7061ab474",
+    "require": "^0.5.0",
+    "libxmljs": "^0.8.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT"
+}
