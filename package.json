@@ -4,7 +4,7 @@
   "description": "extract triples",
   "main": "server.js",
   "dependencies": {
-    "xlsjs": "git://github.com/mchapman/js-xls#dd81dd72a38a2872fd1e5ad36f344bc7061ab474",
+    "xlsjs": "git://github.com/mchapman/js-xls#af144683b5702d4442a1f0cc594c94de74a2b1de",
     "require": "^0.5.0",
     "libxmljs": "^0.8.1"
   },
