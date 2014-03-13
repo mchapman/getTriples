@@ -1,7 +1,5 @@
 var XLS = require('xlsjs')
-    , path = require('path')
-    , request = require("request")
-    , libxmljs = require("libxmljs");
+    , path = require('path');
 
 var config = {
     NUMBERS_REQ_FOR_TAKE : 3
@@ -47,12 +45,11 @@ function handleXlsSheet(name, data) {
         // Copy data in merges into all the merged cells so we can easily find it when looking for column headings
         for (var mergeCell = 0; mergeCell < data['!mergeCells'].length; mergeCell++) {
             var mergeData = data['!mergeCells'][mergeCell]
-                , srcRef = String.fromCharCode(mergeData[2]+65)+(mergeData[0]+1)
-                , src = data[srcRef]
+                , src = data[XLS.utils.encode_cell(mergeData.s)]
                 , destRef;
-            for (var mCol = mergeData[2]; mCol <= mergeData[3]; mCol++) {
-                for (var mRow = mergeData[0]; mRow <= mergeData[1]; mRow++) {
-                    destRef = String.fromCharCode(mCol+65)+(mRow+1);
+            for (var mCol = mergeData.s.c; mCol <= mergeData.e.c; mCol++) {
+                for (var mRow = mergeData.s.r; mRow <= mergeData.e.r; mRow++) {
+                    destRef = XLS.utils.encode_cell({c:mCol, r:mRow});
                     data[destRef] = src;
                 }
             }
@@ -100,7 +97,8 @@ function handleXlsSheet(name, data) {
                             }
                         }
                     } else {
-                        console.log(cellRef, columnHeading, rowCategories[row]|| handleRowCategory(data, col, row, rowCategories) , data[cellRef].v)
+                        var triple = {heading:columnHeading, category: rowCategories[row]|| handleRowCategory(data, col, row, rowCategories) , value: data[cellRef].v};
+                        console.log(cellRef, triple)
                     }
                 } else {
                     numberCount = 0;
